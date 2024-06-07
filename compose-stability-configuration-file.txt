@@ -1,0 +1,2 @@
+com.taetae98.diary.domain.**
+com.taetae98.diary.core.model.**

@@ -8,10 +8,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import app.cash.paging.compose.LazyPagingItems
 import app.cash.paging.compose.itemKey
+import com.taetae98.diary.core.compose.empty.EmptyLayout
 import com.taetae98.diary.core.compose.swipe.FinishAndDeleteSwipe
 import com.taetae98.diary.core.model.memo.Memo
 
@@ -35,7 +37,8 @@ internal fun MemoColumn(
                     contentType = { "memo" },
                 ) {
                     MemoCompose(
-                        modifier = Modifier.fillParentMaxWidth(),
+                        modifier = Modifier.fillParentMaxWidth()
+                            .testTag("PlaceHolder"),
                         memo = null,
                         onClick = {},
                     )
@@ -45,7 +48,11 @@ internal fun MemoColumn(
                     key = "Empty",
                     contentType = "empty",
                 ) {
-                    MemoEmptyLayout(modifier = Modifier.fillParentMaxSize())
+                    EmptyLayout(
+                        modifier = Modifier.fillParentMaxSize()
+                            .testTag("EmptyLayout"),
+                        text = "메모가 없어요 🐶",
+                    )
                 }
             }
         }
@@ -58,7 +65,8 @@ internal fun MemoColumn(
             FinishAndDeleteSwipe(
                 modifier = Modifier.fillParentMaxWidth()
                     .animateItemPlacement()
-                    .clip(CardDefaults.shape),
+                    .clip(CardDefaults.shape)
+                    .testTag("Memo"),
                 onFinish = { pagingItems[it]?.let(onFinish) },
                 onDelete = { pagingItems[it]?.let(onDelete) },
             ) {

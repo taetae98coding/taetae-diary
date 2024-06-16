@@ -1,4 +1,4 @@
-package com.taetae98.diary.feature.memo.list
+package com.taetae98.diary.core.compose.empty
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
@@ -8,15 +8,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun MemoEmptyLayout(
+public fun EmptyLayout(
     modifier: Modifier = Modifier,
+    text: String,
 ) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = "메모가 없어요 🐶",
+            text = text,
             style = MaterialTheme.typography.headlineSmall,
         )
     }

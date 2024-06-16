@@ -51,6 +51,7 @@ include(":core:model")
 include(":core:navigation")
 
 include(":data:memo")
+include(":data:tag")
 
 include(":app:common")
 include(":app:android")
@@ -60,11 +61,14 @@ include(":app:jvm")
 include(":domain:core")
 include(":domain:account")
 include(":domain:memo")
+include(":domain:tag")
 
 include(":feature:memo")
+include(":feature:tag")
 
 include(":library:compose-adaptive")
 include(":library:compose-navigation-suite")
 include(":library:compose-back")
 include(":library:koin")
+include(":library:paging3")
 include(":library:uuid")

@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.taetae98.diary.core.compose.comming.ComingSoon
 import com.taetae98.diary.feature.memo.memoEntry
+import com.taetae98.diary.feature.tag.tagEntry
 
 @Composable
 internal fun AppNavHost(
@@ -23,15 +24,7 @@ internal fun AppNavHost(
         route = "app",
     ) {
         memoEntry(navController = navController)
-
-        composable("tag") {
-            Scaffold {
-                ComingSoon(
-                    modifier = Modifier.fillMaxSize()
-                        .padding(it),
-                )
-            }
-        }
+        tagEntry(navController = navController)
 
         composable("calendar") {
             Scaffold {

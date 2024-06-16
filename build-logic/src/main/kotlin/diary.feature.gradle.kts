@@ -29,6 +29,7 @@ kotlinMultiplatform {
                 implementation(project(":library:compose-adaptive"))
                 implementation(project(":library:compose-navigation-suite"))
                 implementation(project(":library:koin"))
+                implementation(project(":library:paging3"))
 
                 implementation(compose.material3)
 

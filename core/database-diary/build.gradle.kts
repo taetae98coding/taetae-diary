@@ -15,15 +15,31 @@ kotlin {
                 api(libs.room.runtime)
             }
         }
+
+        androidUnitTest {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.room.testing)
+                implementation(libs.robolectric)
+            }
+        }
     }
 }
 
 android {
     namespace = "${Build.NAMESPACE}.core.database.diary"
+
+    sourceSets.getByName("test").assets.srcDirs("$projectDir/schemas")
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 room {
-    schemaDirectory("$projectDir/scheme")
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {

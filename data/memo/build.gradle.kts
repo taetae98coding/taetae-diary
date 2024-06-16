@@ -9,7 +9,7 @@ kotlin {
             dependencies {
                 implementation(project(":core:database-diary"))
                 implementation(project(":domain:memo"))
-                implementation(libs.paging.common)
+                implementation(project(":library:paging3"))
             }
         }
     }

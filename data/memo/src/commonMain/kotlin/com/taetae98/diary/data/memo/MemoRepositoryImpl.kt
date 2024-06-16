@@ -1,11 +1,10 @@
 package com.taetae98.diary.data.memo
 
-import androidx.paging.LoadState
-import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import com.taetae98.diary.core.model.memo.Memo
 import com.taetae98.diary.domain.memo.entity.MemoDetail
 import com.taetae98.diary.domain.memo.repository.MemoRepository
+import com.taetae98.diary.library.paging3.fromWithNotLoading
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
@@ -16,15 +15,7 @@ internal class MemoRepositoryImpl(
 ) : MemoRepository {
     override fun page(owner: String?): Flow<PagingData<Memo>> {
         return localDataSource.page(owner = owner)
-            .map {
-                val loadStates = LoadStates(
-                    refresh = LoadState.NotLoading(true),
-                    prepend = LoadState.NotLoading(true),
-                    append = LoadState.NotLoading(true),
-                )
-
-                PagingData.from(data = it, sourceLoadStates = loadStates)
-            }
+            .map { PagingData.fromWithNotLoading(it) }
     }
 
     override fun findById(id: String): Flow<Memo?> {

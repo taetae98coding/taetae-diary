@@ -8,10 +8,10 @@ import org.koin.core.annotation.Factory
 
 @Factory
 internal class TagLocalDataSource(
-    private val diaryDatabase: DiaryDatabase
+    private val diaryDatabase: DiaryDatabase,
 ) {
-    fun page(owner: String?): Flow<List<Tag>> {
-        return diaryDatabase.tag().page(owner)
+    fun findAll(owner: String?): Flow<List<Tag>> {
+        return diaryDatabase.tag().findAll(owner)
     }
 
     fun findById(id: String): Flow<Tag?> {
@@ -20,11 +20,14 @@ internal class TagLocalDataSource(
 
     suspend fun upsert(tag: Tag) {
         diaryDatabase.tag().upsert(tag)
-
     }
 
     suspend fun update(id: String, detail: TagDetail) {
         diaryDatabase.tag().update(id, detail.title, detail.description)
+    }
+
+    suspend fun updateMemoFilter(id: String, isMemoFilter: Boolean) {
+        diaryDatabase.tag().updateMemoFilter(id, isMemoFilter)
     }
 
     suspend fun updateFinish(id: String, isFinish: Boolean) {

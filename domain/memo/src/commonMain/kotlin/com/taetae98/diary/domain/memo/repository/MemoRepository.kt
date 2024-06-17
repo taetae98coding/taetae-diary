@@ -6,7 +6,8 @@ import com.taetae98.diary.domain.memo.entity.MemoDetail
 import kotlinx.coroutines.flow.Flow
 
 public interface MemoRepository {
-    public fun page(owner: String?): Flow<PagingData<Memo>>
+    public fun page(owner: String?, tagIdList: List<String>): Flow<PagingData<Memo>>
+    public fun pageByTagId(tagId: String): Flow<PagingData<Memo>>
     public fun findById(id: String): Flow<Memo?>
 
     public suspend fun upsert(memo: Memo)

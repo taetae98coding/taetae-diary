@@ -5,12 +5,11 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.taetae98.diary.core.compose.diary.DiaryInfoState
+import com.taetae98.diary.core.compose.diary.info.DiaryInfoState
 import com.taetae98.diary.core.compose.text.TextFieldState
 import com.taetae98.diary.feature.tag.detail.TagDetailScreen
 import com.taetae98.diary.feature.tag.detail.TagDetailState
@@ -23,9 +22,7 @@ internal fun TagAddRoute(
     tagAddViewModel: TagAddViewModel,
 ) {
     val windowSize = calculateWindowSizeClass()
-    val isExpand = remember {
-        derivedStateOf { windowSize.widthSizeClass == WindowWidthSizeClass.Expanded }
-    }
+    val isExpand = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
 
     val title = tagAddViewModel.title.collectAsStateWithLifecycle()
     val description = tagAddViewModel.description.collectAsStateWithLifecycle()
@@ -35,10 +32,9 @@ internal fun TagAddRoute(
 
     TagDetailScreen(
         modifier = modifier,
-        state = remember {
-            TagDetailState(
+        state = remember(isExpand) {
+            TagDetailState.Add(
                 isExpand = isExpand,
-                isAdd = true,
                 onNavigateUp = navigateUp,
                 onAdd = tagAddViewModel::add,
             )

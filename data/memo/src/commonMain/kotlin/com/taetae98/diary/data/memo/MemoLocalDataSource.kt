@@ -10,8 +10,12 @@ import org.koin.core.annotation.Factory
 internal class MemoLocalDataSource(
     private val diaryDatabase: DiaryDatabase,
 ) {
-    fun page(owner: String?): Flow<List<Memo>> {
-        return diaryDatabase.memo().page(owner)
+    fun page(owner: String?, tagIdList: List<String>): Flow<List<Memo>> {
+        return diaryDatabase.memo().page(owner, tagIdList, tagIdList.size)
+    }
+
+    fun pageByTagId(tagId: String): Flow<List<Memo>> {
+        return diaryDatabase.memo().pageByTagId(tagId)
     }
 
     fun findById(id: String): Flow<Memo?> {

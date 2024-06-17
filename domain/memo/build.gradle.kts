@@ -9,6 +9,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":domain:account"))
+                implementation(project(":domain:tag"))
                 implementation(project(":library:uuid"))
                 implementation(libs.paging.common)
 

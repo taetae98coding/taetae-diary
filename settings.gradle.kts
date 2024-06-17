@@ -51,6 +51,7 @@ include(":core:model")
 include(":core:navigation")
 
 include(":data:memo")
+include(":data:memo-tag")
 include(":data:tag")
 
 include(":app:common")
@@ -61,6 +62,7 @@ include(":app:jvm")
 include(":domain:core")
 include(":domain:account")
 include(":domain:memo")
+include(":domain:memo-tag")
 include(":domain:tag")
 
 include(":feature:memo")

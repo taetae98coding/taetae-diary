@@ -1,5 +1,6 @@
 package com.taetae98.diary.feature.memo.detail
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,20 +16,21 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.taetae98.diary.core.compose.diary.DiaryInfo
-import com.taetae98.diary.core.compose.diary.DiaryInfoState
+import com.taetae98.diary.core.compose.diary.info.DiaryInfo
+import com.taetae98.diary.core.compose.diary.info.DiaryInfoState
+import com.taetae98.diary.core.compose.diary.tag.DiaryTag
+import com.taetae98.diary.core.compose.diary.tag.DiaryTagState
+import com.taetae98.diary.core.compose.dimension.DpDefault
 import com.taetae98.diary.core.compose.icon.AddIcon
 import com.taetae98.diary.core.compose.icon.NavigateUpIcon
-import kotlinx.coroutines.launch
 
 @Composable
 internal fun MemoDetailScreen(
     modifier: Modifier = Modifier,
     state: MemoDetailState,
     infoState: DiaryInfoState,
+    tagState: DiaryTagState,
     message: () -> MemoDetailMessage?,
 ) {
     val hostState = remember { SnackbarHostState() }
@@ -48,7 +50,7 @@ internal fun MemoDetailScreen(
             }
         },
         floatingActionButton = {
-            if (state.isFloatingVisible) {
+            if (state is MemoDetailState.Add) {
                 FloatingActionButton(onClick = state.onAdd) {
                     AddIcon()
                 }
@@ -59,8 +61,9 @@ internal fun MemoDetailScreen(
         Content(
             modifier = Modifier.fillMaxSize()
                 .padding(it)
-                .padding(horizontal = 6.dp),
+                .padding(horizontal = DpDefault.ScreenHorizontalDp),
             infoState = infoState,
+            tagState = tagState,
         )
     }
 
@@ -74,14 +77,23 @@ internal fun MemoDetailScreen(
 private fun Content(
     modifier: Modifier = Modifier,
     infoState: DiaryInfoState,
+    tagState: DiaryTagState,
 ) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(DpDefault.ItemSpaceDp),
     ) {
         DiaryInfo(
             modifier = Modifier.fillMaxWidth(),
             state = infoState,
         )
+
+        if (!tagState.isEmpty) {
+            DiaryTag(
+                modifier = Modifier.fillMaxWidth(),
+                state = tagState,
+            )
+        }
     }
 }
 
@@ -90,22 +102,16 @@ private fun DetailMessage(
     hostState: SnackbarHostState,
     message: () -> MemoDetailMessage?,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     LaunchedEffect(message()) {
         when (val msg = message()) {
             is MemoDetailMessage.TitleEmpty -> {
-                coroutineScope.launch {
-                    msg.dismiss()
-                    hostState.showSnackbar("제목을 입력해 주세요.")
-                }
+                hostState.showSnackbar("제목을 입력해 주세요.")
+                msg.dismiss()
             }
 
             is MemoDetailMessage.Add -> {
-                coroutineScope.launch {
-                    msg.dismiss()
-                    hostState.showSnackbar("메모 추가")
-                }
+                hostState.showSnackbar("메모 추가")
+                msg.dismiss()
             }
 
             else -> Unit

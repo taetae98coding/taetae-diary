@@ -8,7 +8,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":domain:memo"))
-                implementation(libs.lifecycle.viewmodel.savedstate)
+                implementation(project(":domain:memo-tag"))
+                implementation(project(":domain:tag"))
             }
         }
     }

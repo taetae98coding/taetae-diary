@@ -17,6 +17,7 @@ internal class TagDetailViewModel(
     private val tagRepository: TagRepository,
     private val updateTagUseCase: UpdateTagUseCase,
 ) : ViewModel() {
+    val id = savedStateHandle.getStateFlow(TAG_ID, "")
     val title = savedStateHandle.getStateFlow(TITLE, "")
     val description = savedStateHandle.getStateFlow(DESCRIPTION, "")
 

@@ -14,6 +14,16 @@ public fun <T : Any> PagingData.Companion.emptyWithLoading(): PagingData<T> {
     return empty(sourceLoadStates = loadStates)
 }
 
+public fun <T : Any> PagingData.Companion.emptyWithNotLoading(): PagingData<T> {
+    val loadStates = LoadStates(
+        refresh = LoadState.NotLoading(true),
+        prepend = LoadState.NotLoading(true),
+        append = LoadState.NotLoading(true),
+    )
+
+    return empty(sourceLoadStates = loadStates)
+}
+
 public fun <T : Any> PagingData.Companion.fromWithLoading(
     data: List<T>,
 ): PagingData<T> {

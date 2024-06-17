@@ -13,8 +13,13 @@ import org.koin.core.annotation.Factory
 internal class MemoRepositoryImpl(
     private val localDataSource: MemoLocalDataSource,
 ) : MemoRepository {
-    override fun page(owner: String?): Flow<PagingData<Memo>> {
-        return localDataSource.page(owner = owner)
+    override fun page(owner: String?, tagIdList: List<String>): Flow<PagingData<Memo>> {
+        return localDataSource.page(owner = owner, tagIdList = tagIdList)
+            .map { PagingData.fromWithNotLoading(it) }
+    }
+
+    override fun pageByTagId(tagId: String): Flow<PagingData<Memo>> {
+        return localDataSource.pageByTagId(tagId)
             .map { PagingData.fromWithNotLoading(it) }
     }
 

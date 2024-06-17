@@ -7,6 +7,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":domain:memo"))
                 implementation(project(":domain:tag"))
             }
         }

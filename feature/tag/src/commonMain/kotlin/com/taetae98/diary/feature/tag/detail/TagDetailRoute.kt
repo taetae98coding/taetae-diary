@@ -5,12 +5,11 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.taetae98.diary.core.compose.diary.DiaryInfoState
+import com.taetae98.diary.core.compose.diary.info.DiaryInfoState
 import com.taetae98.diary.core.compose.text.TextFieldState
 
 @Composable
@@ -18,12 +17,11 @@ import com.taetae98.diary.core.compose.text.TextFieldState
 internal fun TagDetailRoute(
     modifier: Modifier = Modifier,
     navigateUp: () -> Unit,
+    navigateToMemo: () -> Unit,
     tagDetailViewModel: TagDetailViewModel,
 ) {
     val windowSize = calculateWindowSizeClass()
-    val isExpand = remember {
-        derivedStateOf { windowSize.widthSizeClass == WindowWidthSizeClass.Expanded }
-    }
+    val isExpand = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
 
     val title = tagDetailViewModel.title.collectAsStateWithLifecycle()
     val description = tagDetailViewModel.description.collectAsStateWithLifecycle()
@@ -31,11 +29,11 @@ internal fun TagDetailRoute(
 
     TagDetailScreen(
         modifier = modifier,
-        state = remember {
-            TagDetailState(
+        state = remember(isExpand) {
+            TagDetailState.Detail(
                 isExpand = isExpand,
-                isAdd = false,
                 onNavigateUp = navigateUp,
+                onMemo = navigateToMemo,
             )
         },
         infoState = remember {

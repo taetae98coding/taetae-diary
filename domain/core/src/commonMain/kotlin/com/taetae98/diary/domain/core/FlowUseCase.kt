@@ -10,6 +10,7 @@ public abstract class FlowUseCase<P, R> {
         return flow {
             emitAll(execute(param))
         }.catch {
+            it.printStackTrace()
             emit(Result.failure(it))
         }
     }

@@ -5,12 +5,12 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.taetae98.diary.core.compose.diary.DiaryInfoState
+import com.taetae98.diary.core.compose.diary.info.DiaryInfoState
+import com.taetae98.diary.core.compose.diary.tag.DiaryTagState
 import com.taetae98.diary.core.compose.text.TextFieldState
 import com.taetae98.diary.feature.memo.detail.MemoDetailScreen
 import com.taetae98.diary.feature.memo.detail.MemoDetailState
@@ -23,22 +23,21 @@ internal fun MemoAddRoute(
     memoAddViewModel: MemoAddViewModel,
 ) {
     val windowSize = calculateWindowSizeClass()
-    val isExpand = remember {
-        derivedStateOf { windowSize.widthSizeClass == WindowWidthSizeClass.Expanded }
-    }
+    val isExpand = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
 
     val title = memoAddViewModel.title.collectAsStateWithLifecycle()
     val description = memoAddViewModel.description.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState(0) { 2 }
 
+    val tagList = memoAddViewModel.tagList.collectAsStateWithLifecycle()
+
     val message by memoAddViewModel.message.collectAsStateWithLifecycle()
 
     MemoDetailScreen(
         modifier = modifier,
-        state = remember {
-            MemoDetailState(
+        state = remember(isExpand) {
+            MemoDetailState.Add(
                 isExpand = isExpand,
-                isAdd = true,
                 onNavigateUp = navigateUp,
                 onAdd = memoAddViewModel::add,
             )
@@ -48,6 +47,12 @@ internal fun MemoAddRoute(
                 title = TextFieldState(title, memoAddViewModel::setTitle),
                 description = TextFieldState(description, memoAddViewModel::setDescription),
                 pagerState = pagerState,
+            )
+        },
+        tagState = remember {
+            DiaryTagState(
+                tagListState = tagList,
+                onUpdateMemoTag = memoAddViewModel::updateMemoTag,
             )
         },
         message = { message },

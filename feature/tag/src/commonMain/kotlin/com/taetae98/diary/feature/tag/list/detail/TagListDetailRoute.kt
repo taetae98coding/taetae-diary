@@ -15,6 +15,7 @@ import org.koin.compose.viewmodel.koinNavViewModel
 @NonRestartableComposable
 internal fun TagListDetailRoute(
     modifier: Modifier = Modifier,
+    navigateToTagMemoList: (String) -> Unit,
 ) {
     val navigator = rememberListDetailNavigator()
     val tagListDetailViewModel = koinNavViewModel<TagListDetailViewModel>()
@@ -47,6 +48,7 @@ internal fun TagListDetailRoute(
                     tagListDetailViewModel.setIsAdd(true)
                     navigator.navigateUp()
                 },
+                navigateToMemo = { navigateToTagMemoList(tagDetailViewModel.id.value) },
                 tagListDetailViewModel = koinNavViewModel(),
                 tagAddViewModel = koinNavViewModel(),
                 tagDetailViewModel = koinNavViewModel(),

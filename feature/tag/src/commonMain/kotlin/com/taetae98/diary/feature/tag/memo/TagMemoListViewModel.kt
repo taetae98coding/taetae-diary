@@ -1,0 +1,80 @@
+package com.taetae98.diary.feature.tag.memo
+
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.taetae98.diary.core.compose.memo.MemoListActionMessage
+import com.taetae98.diary.core.navigation.tag.TagMemoList
+import com.taetae98.diary.domain.memo.usecase.PageMemoByTagIdUseCase
+import com.taetae98.diary.domain.memo.usecase.UpdateMemoDeleteUseCase
+import com.taetae98.diary.domain.memo.usecase.UpdateMemoFinishUseCase
+import com.taetae98.diary.library.paging3.emptyWithLoading
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
+
+@KoinViewModel
+internal class TagMemoListViewModel(
+    savedStateHandle: SavedStateHandle,
+    pageMemoByTagIdUseCase: PageMemoByTagIdUseCase,
+    private val updateMemoFinishUseCase: UpdateMemoFinishUseCase,
+    private val updateMemoDeleteUseCase: UpdateMemoDeleteUseCase,
+) : ViewModel() {
+    private val tagId = savedStateHandle.getStateFlow(TagMemoList.TAG_ID, "")
+
+    val pagingData = tagId.flatMapLatest { pageMemoByTagIdUseCase(it) }
+        .mapLatest { it.getOrNull() ?: PagingData.emptyWithLoading() }
+        .cachedIn(viewModelScope)
+
+    private val _message = MutableStateFlow<MemoListActionMessage?>(null)
+    val message = _message.asStateFlow()
+
+    fun finish(id: String) {
+        viewModelScope.launch {
+            updateMemoFinishUseCase(UpdateMemoFinishUseCase.Param(id, true))
+                .onSuccess {
+                    val message = MemoListActionMessage.Finish(
+                        dismiss = ::dismissMessage,
+                        cancel = { start(id) },
+                    )
+                    _message.emit(message)
+                }
+        }
+    }
+
+    fun delete(id: String) {
+        viewModelScope.launch {
+            updateMemoDeleteUseCase(UpdateMemoDeleteUseCase.Param(id, true))
+                .onSuccess {
+                    val message = MemoListActionMessage.Delete(
+                        dismiss = ::dismissMessage,
+                        cancel = { restore(id) },
+                    )
+                    _message.emit(message)
+                }
+        }
+    }
+
+    private fun dismissMessage() {
+        viewModelScope.launch {
+            _message.emit(null)
+        }
+    }
+
+    private fun start(id: String) {
+        viewModelScope.launch {
+            updateMemoFinishUseCase(UpdateMemoFinishUseCase.Param(id, false))
+        }
+    }
+
+    private fun restore(id: String) {
+        viewModelScope.launch {
+            updateMemoDeleteUseCase(UpdateMemoDeleteUseCase.Param(id, false))
+        }
+    }
+}

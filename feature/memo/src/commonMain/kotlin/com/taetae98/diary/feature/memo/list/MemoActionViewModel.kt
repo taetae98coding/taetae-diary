@@ -2,6 +2,7 @@ package com.taetae98.diary.feature.memo.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.taetae98.diary.core.compose.memo.MemoListActionMessage
 import com.taetae98.diary.domain.memo.usecase.UpdateMemoDeleteUseCase
 import com.taetae98.diary.domain.memo.usecase.UpdateMemoFinishUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

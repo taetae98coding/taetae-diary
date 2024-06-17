@@ -21,6 +21,7 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.room.testing)
                 implementation(libs.robolectric)
+                implementation(libs.coroutines.test)
             }
         }
     }

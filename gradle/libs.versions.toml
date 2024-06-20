@@ -1,10 +1,12 @@
 [versions]
-kotlin = "2.0.0"                                            # https://github.com/JetBrains/kotlin/releases
-agp = "8.5.0"                                               # https://developer.android.com/build/releases/gradle-plugin?hi=en
-ksp = "2.0.0-1.0.22"                                        # https://github.com/google/ksp/releases
+kotlin = "1.9.23"                                           # https://github.com/JetBrains/kotlin/releases
+agp = "8.3.2"                                               # https://developer.android.com/build/releases/gradle-plugin?hi=en
+ksp = "1.9.23-1.0.19"                                       # https://github.com/google/ksp/releases
 
 coroutines = "1.9.0-RC"                                     # https://github.com/Kotlin/kotlinx.coroutines/releases
 immutable = "0.3.7"                                         # https://github.com/Kotlin/kotlinx.collections.immutable/releases
+datetime = "0.6.0"                                          # https://github.com/Kotlin/kotlinx-datetime/releases
+serialization = "1.7.1"                                     # https://github.com/Kotlin/kotlinx.serialization/releases
 
 compose = "1.6.11"                                          # https://github.com/JetBrains/compose-multiplatform/releases
 compose-bom = "2024.06.00"                                  # https://developer.android.com/develop/ui/compose/bom/bom-mapping?hl=en
@@ -14,10 +16,12 @@ lifecycle = "2.8.0"                                         # https://maven.pkg.
 navigation = "2.7.0-alpha07"                                # https://maven.pkg.jetbrains.space/public/p/compose/dev/org/jetbrains/androidx/navigation/navigation-common/
 room = "2.7.0-alpha04"                                      # https://developer.android.com/jetpack/androidx/releases/room?hl=en
 sqlite = "2.5.0-alpha04"                                    # https://developer.android.com/jetpack/androidx/releases/sqlite?hl=en
+datastore = "1.1.1"                                         # https://developer.android.com/jetpack/androidx/releases/datastore?hl=en
 
 shimmer = "1.3.0"                                           # https://github.com/valentinilk/compose-shimmer/releases
-markdown = "0.21.0"                                         # https://github.com/mikepenz/multiplatform-markdown-renderer/releases
+markdown = "0.22.0"                                         # https://github.com/mikepenz/multiplatform-markdown-renderer/releases
 
+ktor = "2.3.12"                                             # https://github.com/ktorio/ktor/releases
 koin = "3.5.6"                                              # https://github.com/InsertKoinIO/koin/releases
 koin-annotations = "1.3.1"                                  # https://github.com/InsertKoinIO/koin-annotations/releases
 
@@ -30,6 +34,8 @@ activity = "1.9.0"                                          # https://developer.
 startup = "1.1.1"                                           # https://developer.android.com/jetpack/androidx/releases/startup?hl=en
 
 kotest = "5.9.1"                                            # https://github.com/kotest/kotest/releases
+kotest-koin = "1.3.0"                                       # https://github.com/kotest/kotest-extensions-koin
+
 mockk = "1.13.11"                                           # https://github.com/mockk/mockk/releases
 robolectric = "4.12.2"                                      # https://github.com/robolectric/robolectric/releases
 
@@ -38,12 +44,14 @@ gradle-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin",
 gradle-ksp = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 gradle-android = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 gradle-compose = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose" }
-gradle-compose-compiler = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
+#gradle-compose-compiler = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
+gradle-room = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 
 immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "immutable" }
+datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "datetime" }
 
 paging-common = { group = "app.cash.paging", name = "paging-common", version.ref = "paging" }
 paging-compose = { group = "app.cash.paging", name = "paging-compose-common", version.ref = "paging" }
@@ -61,6 +69,8 @@ room-testing = { group = "androidx.room", name = "room-testing", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
 
+datastore-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
+
 shimmer = { group = "com.valentinilk.shimmer", name = "compose-shimmer", version.ref = "shimmer" }
 markdown = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdown" }
 
@@ -69,10 +79,18 @@ koin-core = { group = "io.insert-koin", name = "koin-core" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-androidx-compose-navigation = { group = "io.insert-koin", name = "koin-androidx-compose-navigation" }
+koin-test = { group = "io.insert-koin", name = "koin-test" }
 
 koin-annotations-bom = { group = "io.insert-koin", name = "koin-annotations-bom", version.ref = "koin-annotations" }
 koin-annotations = { group = "io.insert-koin", name = "koin-annotations" }
 koin-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler" }
+
+ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
+ktor-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 
 material3-windowsize = { group = "dev.chrisbanes.material3", name = "material3-window-size-class-multiplatform", version.ref = "material3-windowsize" }
 material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "material3-adaptive" }
@@ -85,12 +103,14 @@ activity-compose = { group = "androidx.activity", name = "activity-compose", ver
 startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "startup" }
 
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
 kotest-engine = { group = "io.kotest", name = "kotest-framework-engine", version.ref = "kotest" }
 kotest-assertions = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-property = { group = "io.kotest", name = "kotest-property", version.ref = "kotest" }
 kotest-junit = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
+kotest-koin = { group = "io.kotest.extensions", name = "kotest-extensions-koin", version.ref = "kotest-koin" }
 
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
@@ -100,17 +120,19 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+#compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 androidx-room = { id = "androidx.room", version.ref = "room" }
 
 kotest = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 
 [bundles]
-kotest = ["kotest-engine", "kotest-assertions", "kotest-property"]
+kotest = ["kotest-engine", "kotest-assertions", "kotest-property", "kotest-koin"]

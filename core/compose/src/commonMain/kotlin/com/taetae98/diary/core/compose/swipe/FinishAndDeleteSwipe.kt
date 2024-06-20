@@ -47,12 +47,12 @@ public fun FinishAndDeleteSwipe(
                 modifier = Modifier.fillMaxSize()
                     .drawBehind {
                         val color = when (state.dismissDirection) {
-                            SwipeToDismissBoxValue.Settled -> Color.Transparent
+                            SwipeToDismissBoxValue.Settled -> null
                             SwipeToDismissBoxValue.StartToEnd -> Color.Green
                             SwipeToDismissBoxValue.EndToStart -> Color.Red
-                        }.copy(alpha = 0.5F)
+                        }?.copy(alpha = 0.5F)
 
-                        drawRect(color)
+                        color?.let(::drawRect)
                     }
                     .padding(horizontal = 8.dp),
             ) {

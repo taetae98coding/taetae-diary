@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-internal data class MemoEntity(
+public data class MemoEntity(
     @PrimaryKey
     val id: String,
     val title: String,

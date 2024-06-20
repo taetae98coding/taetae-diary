@@ -9,7 +9,7 @@ struct DiaryApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().ignoresSafeArea()
+            ContentView().ignoresSafeArea(SafeAreaRegions.container)
         }
     }
 }

@@ -29,7 +29,7 @@ import com.taetae98.diary.core.database.diary.tag.TagEntity
         ),
     ],
 )
-internal data class MemoTagEntity(
+public data class MemoTagEntity(
     val memoId: String,
     val tagId: String,
 )

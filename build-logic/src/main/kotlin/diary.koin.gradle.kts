@@ -15,6 +15,13 @@ kotlinMultiplatform {
                 implementation(libs.findLibrary("koin-annotations").get())
             }
         }
+
+        commonTest {
+            dependencies {
+                implementation(project.dependencies.platform(libs.findLibrary("koin-bom").get()))
+                implementation(libs.findLibrary("koin-test").get())
+            }
+        }
     }
 }
 

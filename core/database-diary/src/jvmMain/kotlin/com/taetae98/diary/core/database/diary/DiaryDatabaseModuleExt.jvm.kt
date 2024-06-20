@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import java.io.File
 
 internal actual fun DiaryDatabaseModule.getDatabaseBuilder(): RoomDatabase.Builder<DiaryDatabase> {
-    val file = File(System.getProperty("java.io.tmpdir"), "diary.db")
+    val file = File(System.getProperty("java.io.tmpdir"), DATABASE_NAME)
 
-    return Room.databaseBuilder<DiaryDatabase>(name = file.absolutePath)
+    return Room.databaseBuilder(name = file.absolutePath)
 }

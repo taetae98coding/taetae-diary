@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.taetae98.diary.core.database.diary.tag.TagEntity
 import com.taetae98.diary.core.model.memo.tag.MemoTag
 import com.taetae98.diary.core.model.tag.Tag
 import kotlinx.coroutines.flow.Flow
@@ -24,15 +25,15 @@ public interface MemoTagDao {
         )
     """,
     )
-    public fun findByMemoId(memoId: String): Flow<List<Tag>>
+    public fun findByMemoId(memoId: String): Flow<List<TagEntity>>
 
     @Upsert(MemoTagEntity::class)
-    public suspend fun upsert(memoTag: MemoTag)
+    public suspend fun upsert(memoTag: MemoTagEntity)
 
     @Transaction
     @Upsert(MemoTagEntity::class)
-    public suspend fun upsert(collection: Collection<MemoTag>)
+    public suspend fun upsert(collection: Collection<MemoTagEntity>)
 
     @Delete(MemoTagEntity::class)
-    public suspend fun delete(memoTag: MemoTag)
+    public suspend fun delete(memoTag: MemoTagEntity)
 }

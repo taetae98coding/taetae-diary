@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-internal data class TagEntity(
+public data class TagEntity(
     @PrimaryKey
     val id: String,
     val title: String,

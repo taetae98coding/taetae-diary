@@ -21,10 +21,12 @@ internal fun MemoListRoute(
     memoListDetailViewModel: MemoListDetailViewModel,
     memoListViewModel: MemoListViewModel,
     memoActionViewModel: MemoActionViewModel,
+    memoFilterViewModel: MemoFilterViewModel,
 ) {
     val windowSize = calculateWindowSizeClass()
     val isExpand = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
     val isAdd = memoListDetailViewModel.isAdd.collectAsStateWithLifecycle()
+    val hasMemoFilter = memoFilterViewModel.hasMemoFilter.collectAsStateWithLifecycle()
     val message by memoActionViewModel.message.collectAsStateWithLifecycle()
 
     MemoListScreen(
@@ -34,10 +36,15 @@ internal fun MemoListRoute(
                 isExpand = isExpand,
                 isAdd = isAdd,
                 onAdd = navigateToAdd,
-                onFilter = navigateToListFilter,
                 onMemo = { navigateToDetail(it.id) },
                 onFinish = { memoActionViewModel.finish(it.id) },
                 onDelete = { memoActionViewModel.delete(it.id) },
+            )
+        },
+        filterState = remember {
+            MemoListFilterState(
+                hasMemoFilterState = hasMemoFilter,
+                onFilter = navigateToListFilter,
             )
         },
         pagingItems = memoListViewModel.pagingData.collectAsLazyPagingItems(),

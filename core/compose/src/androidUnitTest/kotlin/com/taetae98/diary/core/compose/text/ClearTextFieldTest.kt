@@ -10,11 +10,13 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
+@Ignore("Compose + Robolectric 버그로 CI 테스트 시 Exception 발생")
 @RunWith(RobolectricTestRunner::class)
 class ClearTextFieldTest {
     @Test

@@ -7,7 +7,7 @@ import org.koin.core.component.inject
 
 internal actual fun DiaryDatabaseModule.getDatabaseBuilder(): RoomDatabase.Builder<DiaryDatabase> {
     val context by inject<Context>()
-    val file = context.getDatabasePath("diary.db")
+    val file = context.getDatabasePath(DATABASE_NAME)
 
     return Room.databaseBuilder(
         context = context,

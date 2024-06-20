@@ -19,6 +19,7 @@ import com.taetae98.diary.core.compose.dimension.DpDefault
 import com.taetae98.diary.core.compose.empty.EmptyLayout
 import com.taetae98.diary.core.compose.icon.TagIcon
 import com.taetae98.diary.core.model.tag.Tag
+import com.valentinilk.shimmer.shimmer
 
 @Composable
 internal fun MemoListFilterDialog(
@@ -32,7 +33,9 @@ internal fun MemoListFilterDialog(
         confirmButton = {},
         title = { Text(text = "필터") },
         text = {
-            if (state.tagList.isEmpty()) {
+            val list = state.tagList ?: List(3) { null }
+
+            if (list.isEmpty()) {
                 EmptyLayout(
                     modifier = Modifier.fillMaxWidth()
                         .height(150.dp),
@@ -42,12 +45,12 @@ internal fun MemoListFilterDialog(
             } else {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(DpDefault.ItemSpaceDp, Alignment.CenterHorizontally),
-                    verticalArrangement = Arrangement.spacedBy(DpDefault.ItemSpaceDp)
+                    verticalArrangement = Arrangement.spacedBy(DpDefault.ItemSpaceDp),
                 ) {
-                    state.tagList.forEach {
+                    list.forEach { tag ->
                         TagCompose(
-                            tag = it,
-                            onClick = { state.onSelect(it.id, !it.isMemoFilter) },
+                            tag = tag,
+                            onClick = { tag?.let { state.onSelect(it.id, !it.isMemoFilter) } },
                         )
                     }
                 }
@@ -59,17 +62,23 @@ internal fun MemoListFilterDialog(
 @Composable
 private fun TagCompose(
     modifier: Modifier = Modifier,
-    tag: Tag,
+    tag: Tag?,
     onClick: () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalMinimumInteractiveComponentEnforcement provides false,
     ) {
         FilterChip(
-            modifier = modifier,
-            selected = tag.isMemoFilter,
+            modifier = modifier.run {
+                if (tag == null) {
+                    shimmer()
+                } else {
+                    this
+                }
+            },
+            selected = tag?.isMemoFilter ?: false,
             onClick = onClick,
-            label = { Text(text = tag.title) },
+            label = { Text(text = tag?.title.orEmpty()) },
             leadingIcon = { TagIcon() },
             shape = CircleShape,
         )

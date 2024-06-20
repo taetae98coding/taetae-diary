@@ -4,3 +4,5 @@
 **/build
 **/local.properties
 **/xcuserdata/**
+**/dev.xcconfig
+**/real.xcconfig

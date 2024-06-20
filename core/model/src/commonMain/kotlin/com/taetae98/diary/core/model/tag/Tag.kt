@@ -4,6 +4,7 @@ public data class Tag(
     val id: String,
     val title: String,
     val description: String,
+    val isMemoFilter: Boolean,
     val isFinish: Boolean,
     val isDelete: Boolean,
     val owner: String?,

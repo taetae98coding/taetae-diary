@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taetae98.diary.core.model.memo.Memo
+import com.taetae98.diary.core.navigation.memo.MemoDetailNav
 import com.taetae98.diary.domain.memo.entity.MemoDetail
 import com.taetae98.diary.domain.memo.repository.MemoRepository
 import com.taetae98.diary.domain.memo.usecase.UpdateMemoUseCase
@@ -20,10 +21,14 @@ internal class MemoDetailViewModel(
     val title = savedStateHandle.getStateFlow(TITLE, "")
     val description = savedStateHandle.getStateFlow(DESCRIPTION, "")
 
+    init {
+        savedStateHandle.get<String>(MemoDetailNav.MEMO_ID)?.let { setMemoId(it) }
+    }
+
     fun setMemoId(memoId: String) {
         updateIfChanged()
 
-        savedStateHandle[MEMO_ID] = memoId
+        savedStateHandle[MemoDetailNav.MEMO_ID] = memoId
         viewModelScope.launch {
             memoRepository.findById(memoId).firstOrNull()?.let { updateByMemo(it) }
         }
@@ -49,7 +54,7 @@ internal class MemoDetailViewModel(
         if (savedStateHandle.get<Boolean>(HAS_CHANGED) != true) return
 
         val param = UpdateMemoUseCase.Param(
-            memoId = savedStateHandle.get<String>(MEMO_ID) ?: return,
+            memoId = savedStateHandle.get<String>(MemoDetailNav.MEMO_ID) ?: return,
             detail = MemoDetail(
                 title = title.value,
                 description = description.value,
@@ -64,7 +69,6 @@ internal class MemoDetailViewModel(
     companion object {
         private const val HAS_CHANGED = "hasChanged"
 
-        private const val MEMO_ID = "memoId"
         private const val TITLE = "title"
         private const val DESCRIPTION = "description"
     }

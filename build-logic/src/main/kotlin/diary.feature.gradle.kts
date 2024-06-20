@@ -23,6 +23,7 @@ kotlinMultiplatform {
         commonMain {
             dependencies {
                 implementation(project(":core:compose"))
+                implementation(project(":core:coroutines"))
                 implementation(project(":core:navigation"))
 
                 implementation(project(":library:compose-back"))
@@ -37,6 +38,7 @@ kotlinMultiplatform {
                 implementation(libs.findLibrary("lifecycle-runtime-compose").get())
                 implementation(libs.findLibrary("navigation-compose").get())
 
+                implementation(libs.findLibrary("immutable").get())
                 implementation(libs.findLibrary("shimmer").get())
                 implementation(libs.findLibrary("material3-windowsize").get())
             }

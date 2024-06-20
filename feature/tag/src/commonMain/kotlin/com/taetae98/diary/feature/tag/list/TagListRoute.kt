@@ -4,12 +4,10 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import app.cash.paging.compose.collectAsLazyPagingItems
 import com.taetae98.diary.feature.tag.list.detail.TagListDetailViewModel
 
 @Composable
@@ -23,15 +21,15 @@ internal fun TagListRoute(
     tagActionViewModel: TagActionViewModel,
 ) {
     val windowSize = calculateWindowSizeClass()
-    val isExpand = remember {
-        derivedStateOf { windowSize.widthSizeClass == WindowWidthSizeClass.Expanded }
-    }
+    val isExpand = windowSize.widthSizeClass == WindowWidthSizeClass.Expanded
+
     val isAdd = tagListDetailViewModel.isAdd.collectAsStateWithLifecycle()
+    val tagList by tagListViewModel.tagList.collectAsStateWithLifecycle()
     val message by tagActionViewModel.message.collectAsStateWithLifecycle()
 
     TagListScreen(
         modifier = modifier,
-        state = remember {
+        state = remember(isExpand) {
             TagListState(
                 isExpand = isExpand,
                 isAdd = isAdd,
@@ -41,7 +39,7 @@ internal fun TagListRoute(
                 onDelete = { tagActionViewModel.delete(it.id) },
             )
         },
-        pagingItems = tagListViewModel.pagingData.collectAsLazyPagingItems(),
+        tagList = { tagList },
         message = { message },
     )
 }

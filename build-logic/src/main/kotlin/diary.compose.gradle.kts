@@ -9,6 +9,7 @@ plugins {
 kotlin {
     sourceSets.all {
         languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
+        languageSettings.optIn("androidx.compose.foundation.layout.ExperimentalLayoutApi")
         languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
         languageSettings.optIn("androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi")
         languageSettings.optIn("androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi")

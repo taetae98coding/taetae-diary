@@ -8,9 +8,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,20 +22,17 @@ public actual fun App(
     DiaryTheme {
         val navController = rememberNavController()
         val backStack by navController.currentBackStackEntryAsState()
-        val selectNavigation by remember {
-            derivedStateOf {
-                AppNavigation.entries.find { navigation ->
-                    backStack?.destination?.hierarchy?.any { it.route == navigation.route } == true
-                }
-            }
-        }
 
         Scaffold(
             bottomBar = {
                 NavigationBar {
+                    val selected = AppNavigation.entries.find { navigation ->
+                        backStack?.destination?.hierarchy?.any { it.route == navigation.route } == true
+                    }
+
                     AppNavigation.entries.forEach {
                         NavigationBarItem(
-                            selected = it == selectNavigation,
+                            selected = it == selected,
                             onClick = { navController.navigate(it) },
                             icon = { Icon(imageVector = it.icon, it.label) },
                             label = { Text(text = it.label) },

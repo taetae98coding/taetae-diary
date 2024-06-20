@@ -14,8 +14,8 @@ import org.koin.core.annotation.Factory
 public class InsertMemoUseCase internal constructor(
     private val getAccountUseCase: GetAccountUseCase,
     private val repository: MemoRepository,
-) : UseCase<MemoDetail, Unit>() {
-    override suspend fun execute(param: MemoDetail) {
+) : UseCase<MemoDetail, String>() {
+    override suspend fun execute(param: MemoDetail): String {
         if (param.title.isEmpty()) throw MemoTitleEmptyException()
 
         val account = getAccountUseCase(Unit).first().getOrThrow()
@@ -29,5 +29,6 @@ public class InsertMemoUseCase internal constructor(
         )
 
         repository.upsert(memo)
+        return memo.id
     }
 }

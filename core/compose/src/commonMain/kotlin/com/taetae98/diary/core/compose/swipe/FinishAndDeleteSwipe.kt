@@ -25,8 +25,8 @@ import com.taetae98.diary.core.compose.icon.FinishIcon
 @Composable
 public fun FinishAndDeleteSwipe(
     modifier: Modifier = Modifier,
-    onFinish: () -> Unit,
-    onDelete: () -> Unit,
+    onFinish: () -> Boolean,
+    onDelete: () -> Boolean,
     content: @Composable RowScope.() -> Unit,
 ) {
     val state = rememberSwipeToDismissBoxState(
@@ -34,10 +34,8 @@ public fun FinishAndDeleteSwipe(
             when (it) {
                 SwipeToDismissBoxValue.StartToEnd -> onFinish()
                 SwipeToDismissBoxValue.EndToStart -> onDelete()
-                else -> Unit
+                else -> true
             }
-
-            true
         },
     )
 

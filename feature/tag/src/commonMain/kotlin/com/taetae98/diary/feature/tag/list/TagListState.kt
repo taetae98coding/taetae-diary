@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import com.taetae98.diary.core.model.tag.Tag
 
 internal data class TagListState(
-    private val isExpand: State<Boolean>,
+    private val isExpand: Boolean,
     private val isAdd: State<Boolean>,
     val onAdd: () -> Unit,
     val onTag: (Tag) -> Unit,
@@ -12,5 +12,5 @@ internal data class TagListState(
     val onDelete: (Tag) -> Unit,
 ) {
     val isFloatingVisible: Boolean
-        get() = !isExpand.value || !isAdd.value
+        get() = !isExpand || !isAdd.value
 }

@@ -23,6 +23,7 @@ public class InsertTagUseCase internal constructor(
             id = uuid(),
             title = param.title,
             description = param.description,
+            isMemoFilter = false,
             isFinish = false,
             isDelete = false,
             owner = account.uid,

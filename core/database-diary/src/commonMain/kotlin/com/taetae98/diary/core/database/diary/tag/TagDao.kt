@@ -15,11 +15,12 @@ public interface TagDao {
         WHERE ((owner = :owner) OR (owner IS NULL AND :owner IS NULL))
         AND isFinish = 0
         AND isDelete = 0
+        ORDER BY title
     """,
     )
-    public fun page(owner: String?): Flow<List<Tag>>
+    public fun findAll(owner: String?): Flow<List<Tag>>
 
-    @Query("SELECT * FROM TagEntity WHERE id = :id")
+    @Query("SELECT * FROM TagEntity WHERE id = :id ORDER BY title")
     public fun findById(id: String): Flow<Tag?>
 
     @Upsert(TagEntity::class)
@@ -33,6 +34,9 @@ public interface TagDao {
     """,
     )
     public suspend fun update(id: String, title: String, description: String)
+
+    @Query("UPDATE TagEntity SET isMemoFilter = :isMemoFilter WHERE id = :id")
+    public suspend fun updateMemoFilter(id: String, isMemoFilter: Boolean)
 
     @Query("UPDATE TagEntity SET isFinish = :isFinish WHERE id = :id")
     public suspend fun updateFinish(id: String, isFinish: Boolean)

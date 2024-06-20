@@ -11,13 +11,29 @@ public interface MemoDao {
     @Query(
         """
         SELECT * 
-        FROM MemoEntity 
+        FROM MemoEntity
         WHERE ((owner = :owner) OR (owner IS NULL AND :owner IS NULL))
         AND isFinish = 0
         AND isDelete = 0
+        AND (:tagIdListSize = 0 OR (id IN (SELECT memoId FROM MemoTagEntity WHERE tagId IN (:tagIdList))))
     """,
     )
-    public fun page(owner: String?): Flow<List<Memo>>
+    public fun page(owner: String?, tagIdList: List<String>, tagIdListSize: Int): Flow<List<Memo>>
+
+    @Query(
+        """
+        SELECT *
+        FROM MemoEntity
+        WHERE isFinish = 0
+        AND isDelete = 0
+        AND id IN (
+            SELECT memoId
+            FROM MemoTagEntity
+            WHERE tagId = :tagId
+        )
+    """
+    )
+    public fun pageByTagId(tagId: String): Flow<List<Memo>>
 
     @Query("SELECT * FROM MemoEntity WHERE id = :id")
     public fun findById(id: String): Flow<Memo?>

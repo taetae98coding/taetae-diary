@@ -9,6 +9,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.taetae98.diary.core.compose.comming.ComingSoon
+import com.taetae98.diary.core.navigation.calendar.CalendarNav
+import com.taetae98.diary.feature.calendar.calendarEntry
 import com.taetae98.diary.feature.memo.memoEntry
 import com.taetae98.diary.feature.tag.tagEntry
 
@@ -20,20 +22,12 @@ internal fun AppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = "calendar",
+        startDestination = CalendarNav.ROUTE,
         route = "app",
     ) {
         memoEntry(navController = navController)
         tagEntry(navController = navController)
-
-        composable("calendar") {
-            Scaffold {
-                ComingSoon(
-                    modifier = Modifier.fillMaxSize()
-                        .padding(it),
-                )
-            }
-        }
+        calendarEntry(navController = navController)
 
         composable("buddy") {
             Scaffold {

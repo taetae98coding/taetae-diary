@@ -1,5 +1,8 @@
 package com.taetae98.diary.core.compose.memo
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -26,10 +29,16 @@ internal fun MemoCompose(
         },
         onClick = onClick,
     ) {
-        Text(
-            modifier = Modifier.padding(12.dp),
-            text = memo?.title.orEmpty(),
-            style = MaterialTheme.typography.titleMedium,
-        )
+        Column(
+            modifier = Modifier
+                .heightIn(min = 50.dp)
+                .padding(horizontal = 12.dp, vertical = 4.dp),
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Text(
+                text = memo?.title.orEmpty(),
+                style = MaterialTheme.typography.titleMedium,
+            )
+        }
     }
 }

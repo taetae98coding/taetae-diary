@@ -2,6 +2,9 @@ package com.taetae98.diary.core.database.diary
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
+import com.taetae98.diary.core.database.diary.memo.MemoEntity
+import com.taetae98.diary.core.database.diary.memo.tag.MemoTagEntity
+import com.taetae98.diary.core.database.diary.tag.TagEntity
 import com.taetae98.diary.core.model.memo.Memo
 import com.taetae98.diary.core.model.memo.tag.MemoTag
 import com.taetae98.diary.core.model.tag.Tag
@@ -71,11 +74,11 @@ class MemoDaoTest {
     }
 
     companion object {
-        private val memo1 = Memo(id = "1", title = "memo1", description = "", isFinish = false, isDelete = false, owner = null)
-        private val memo2 = Memo(id = "2", title = "memo2", description = "", isFinish = false, isDelete = false, owner = null)
+        private val memo1 = MemoEntity(id = "1", title = "memo1", description = "", isFinish = false, isDelete = false, owner = null)
+        private val memo2 = MemoEntity(id = "2", title = "memo2", description = "", isFinish = false, isDelete = false, owner = null)
 
-        private val tag1 = Tag(id = "1", title = "tag1", description = "", isMemoFilter = true, isFinish = false, isDelete = false, owner = null)
+        private val tag1 = TagEntity(id = "1", title = "tag1", description = "", isMemoFilter = true, isFinish = false, isDelete = false, owner = null)
 
-        private val memoTag = MemoTag(memo1.id, tag1.id)
+        private val memoTag = MemoTagEntity(memo1.id, tag1.id)
     }
 }

@@ -5,9 +5,9 @@ import com.taetae98.diary.core.model.tag.Tag
 import kotlinx.collections.immutable.ImmutableList
 
 internal data class MemoListFilterState(
-    private val tagListState: State<ImmutableList<Tag>>,
+    private val tagListState: State<ImmutableList<Tag>?>,
     val onSelect: (id: String, isSelect: Boolean) -> Unit,
 ) {
-    val tagList: ImmutableList<Tag>
+    val tagList: ImmutableList<Tag>?
         get() = tagListState.value
 }

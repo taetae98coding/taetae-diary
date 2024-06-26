@@ -18,7 +18,6 @@ public fun <T : ViewModel> resolveViewModel(
     scope: Scope,
     parameters: ParametersDefinition? = null,
 ): T {
-    //TODO In 3.6 - propose to resolve scope strictly from root or not
     val factory = KoinViewModelFactory(vmClass, scope, qualifier, parameters)
     val provider = ViewModelProvider.create(viewModelStore, factory, extras)
     val vmKey = getViewModelKey(qualifier, key, vmClass.qualifiedName)

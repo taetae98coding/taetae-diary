@@ -1,9 +1,7 @@
 
 import ext.android
-import ext.compose
 import ext.kotlinMultiplatform
 import ext.libs
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 kotlinMultiplatform {
@@ -17,8 +15,9 @@ kotlinMultiplatform {
                 implementation(kotlin("test"))
                 implementation(libs.findLibrary("mockk").get())
                 implementation(libs.findLibrary("robolectric").get())
-                @OptIn(ExperimentalComposeLibrary::class)
-                implementation(compose.uiTestJUnit4)
+
+                implementation(project.dependencies.platform(libs.findLibrary("compose-bom").get()))
+                implementation(libs.findLibrary("compose-ui-test-junit4").get())
             }
         }
     }

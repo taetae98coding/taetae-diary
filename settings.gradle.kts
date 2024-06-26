@@ -14,6 +14,7 @@ pluginManagement {
             content {
                 includeGroupByRegex("org.jetbrains.compose.*")
                 includeGroupByRegex("org.jetbrains.androidx.*")
+                includeGroupByRegex("org.jetbrains.skiko.*")
             }
         }
     }
@@ -37,6 +38,7 @@ dependencyResolutionManagement {
             content {
                 includeGroupByRegex("org.jetbrains.compose.*")
                 includeGroupByRegex("org.jetbrains.androidx.*")
+                includeGroupByRegex("org.jetbrains.skiko.*")
             }
         }
     }
@@ -46,13 +48,19 @@ rootProject.name = "Diary"
 
 include(":core:compose")
 include(":core:coroutines")
+include(":core:datetime")
+include(":core:api-holiday")
 include(":core:database-diary")
+include(":core:database-holiday")
 include(":core:model")
 include(":core:navigation")
+include(":core:pref-holiday")
+include(":core:test")
 
 include(":data:memo")
 include(":data:memo-tag")
 include(":data:tag")
+include(":data:holiday")
 
 include(":app:common")
 include(":app:android")
@@ -64,9 +72,11 @@ include(":domain:account")
 include(":domain:memo")
 include(":domain:memo-tag")
 include(":domain:tag")
+include(":domain:holiday")
 
 include(":feature:memo")
 include(":feature:tag")
+include(":feature:calendar")
 
 include(":library:compose-adaptive")
 include(":library:compose-navigation-suite")

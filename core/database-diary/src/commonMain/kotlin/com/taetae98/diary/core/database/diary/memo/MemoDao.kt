@@ -18,7 +18,7 @@ public interface MemoDao {
         AND (:tagIdListSize = 0 OR (id IN (SELECT memoId FROM MemoTagEntity WHERE tagId IN (:tagIdList))))
     """,
     )
-    public fun page(owner: String?, tagIdList: List<String>, tagIdListSize: Int): Flow<List<Memo>>
+    public fun page(owner: String?, tagIdList: List<String>, tagIdListSize: Int): Flow<List<MemoEntity>>
 
     @Query(
         """
@@ -31,15 +31,15 @@ public interface MemoDao {
             FROM MemoTagEntity
             WHERE tagId = :tagId
         )
-    """
+    """,
     )
-    public fun pageByTagId(tagId: String): Flow<List<Memo>>
+    public fun pageByTagId(tagId: String): Flow<List<MemoEntity>>
 
     @Query("SELECT * FROM MemoEntity WHERE id = :id")
-    public fun findById(id: String): Flow<Memo?>
+    public fun findById(id: String): Flow<MemoEntity?>
 
     @Upsert(MemoEntity::class)
-    public suspend fun upsert(memo: Memo)
+    public suspend fun upsert(memo: MemoEntity)
 
     @Query(
         """

@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.compose.internal.utils.getLocalProperty
 
 plugins {
     id("diary.jvm")
@@ -7,6 +8,7 @@ plugins {
 
 dependencies {
     implementation(project(":app:common"))
+    implementation(project(":core:api-holiday"))
     implementation(compose.ui)
 
     implementation(platform(libs.koin.bom))
@@ -19,12 +21,16 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "com.taetae98.diary.JvmAppKt"
+        args(
+            getLocalProperty("holiday.dev.api.url").orEmpty(),
+            getLocalProperty("holiday.dev.api.key").orEmpty()
+        )
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg)
 
             packageName = "Diary"
-            packageVersion = "1.0.0"
+            packageVersion = "1.2.0"
 
             macOS {
                 bundleID = "com.taetae98.diary"

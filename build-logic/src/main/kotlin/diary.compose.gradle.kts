@@ -3,7 +3,7 @@ import ext.kotlin
 
 plugins {
     id("org.jetbrains.compose")
-    id("org.jetbrains.kotlin.plugin.compose")
+//    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 kotlin {
@@ -16,10 +16,15 @@ kotlin {
     }
 }
 
-composeCompiler {
-    enableStrongSkippingMode = true
-    stabilityConfigurationFile.assign(rootProject.file("compose-stability-configuration-file.txt"))
-}
+//composeCompiler {
+//    enableStrongSkippingMode = true
+//    stabilityConfigurationFile.assign(rootProject.file("compose-stability-configuration-file.txt"))
+//
+//    metricsDestination.assign(rootProject.file("build/compose/metrics"))
+//    reportsDestination.assign(rootProject.file("build/compose/report"))
+//
+//    enableNonSkippingGroupOptimization.assign(true)
+//}
 
 ifAndroid {
     buildFeatures {

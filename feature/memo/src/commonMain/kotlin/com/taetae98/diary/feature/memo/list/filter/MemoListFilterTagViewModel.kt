@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.taetae98.diary.core.coroutines.DEFAULT_WHILE_SUBSCRIBED
 import com.taetae98.diary.domain.tag.usecase.FindAllTagUseCase
 import com.taetae98.diary.domain.tag.usecase.UpdateTagMemoFilterUseCase
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
@@ -23,7 +22,7 @@ internal class MemoListFilterTagViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.DEFAULT_WHILE_SUBSCRIBED,
-            initialValue = persistentListOf(),
+            initialValue = null,
         )
 
     fun updateSelect(id: String, isSelect: Boolean) {

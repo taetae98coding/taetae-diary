@@ -25,6 +25,7 @@ import com.taetae98.diary.core.model.memo.Memo
 internal fun MemoListScreen(
     modifier: Modifier = Modifier,
     state: MemoListState,
+    filterState: MemoListFilterState,
     pagingItems: LazyPagingItems<Memo>,
     message: () -> MemoListActionMessage?,
 ) {
@@ -37,8 +38,8 @@ internal fun MemoListScreen(
                 title = { Text(text = "메모") },
                 actions = {
                     IconToggleButton(
-                        checked = false,
-                        onCheckedChange = { state.onFilter() },
+                        checked = filterState.hasMemoFilter,
+                        onCheckedChange = { filterState.onFilter() },
                     ) {
                         FilterIcon()
                     }

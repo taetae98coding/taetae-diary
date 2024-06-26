@@ -19,6 +19,7 @@ kotlin {
         iosMain {
             dependencies {
                 implementation(project(":app:common"))
+                implementation(project(":core:api-holiday"))
                 implementation(compose.ui)
             }
         }

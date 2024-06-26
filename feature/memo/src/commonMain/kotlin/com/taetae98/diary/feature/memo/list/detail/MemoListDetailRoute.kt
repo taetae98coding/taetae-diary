@@ -43,6 +43,7 @@ internal fun MemoListDetailRoute(
                 memoListDetailViewModel = koinNavViewModel(),
                 memoListViewModel = koinNavViewModel(),
                 memoActionViewModel = koinNavViewModel(),
+                memoFilterViewModel = koinNavViewModel(),
             )
         },
         detailPane = {

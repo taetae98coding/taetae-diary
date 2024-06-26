@@ -18,13 +18,13 @@ public interface TagDao {
         ORDER BY title
     """,
     )
-    public fun findAll(owner: String?): Flow<List<Tag>>
+    public fun findAll(owner: String?): Flow<List<TagEntity>>
 
     @Query("SELECT * FROM TagEntity WHERE id = :id ORDER BY title")
-    public fun findById(id: String): Flow<Tag?>
+    public fun findById(id: String): Flow<TagEntity?>
 
     @Upsert(TagEntity::class)
-    public suspend fun upsert(tag: Tag)
+    public suspend fun upsert(tag: TagEntity)
 
     @Query(
         """
